@@ -1,6 +1,9 @@
 'use client';
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ChordSelector from "@/components/chord-selector";
+import ChordDiagram from "@/components/chordDiagram";
+import { chordData } from "@/app/constants";
 
 interface ComplementaryChordsResponse {
   complementary_chords: string[];
@@ -51,46 +54,28 @@ export default function Page() {
         }
     };
 
+    // Helper function to find chord data by shortName
+    const findChordByShortName = (shortName: string) => {
+        return chordData.find(chord => chord.shortName === shortName);
+    };
+
     return (
         <div className="container mx-auto p-4 flex flex-col gap-4">
             <h1 className="text-2xl font-bold">Chord Progression Helper</h1>
             <div className="space-y-4">
-                <div>
-                    <label className="block text-sm font-medium mb-2">
-                        Select Chords (hold Ctrl/Cmd to select multiple):
-                    </label>
-                    <select 
-                        multiple 
-                        value={selectedChords} 
-                        onChange={(e) => setSelectedChords(Array.from(e.target.selectedOptions).map(option => option.value))} 
-                        className="border border-gray-300 rounded-md p-2 w-full min-h-[120px]"
+                <ChordSelector 
+                    onSelectionChange={setSelectedChords} 
+                    onClearComplementary={() => setComplementaryChords([])}
+                />
+                <div className="flex justify-center items-center">
+                    <button
+                        onClick={submit}
+                        disabled={loading}
+                        className="px-12 py-6 text-2xl font-bold bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-110"
                     >
-                        <option value="C">C</option>
-                        <option value="C#">C#</option>
-                        <option value="D">D</option>
-                        <option value="D#">D#</option>
-                        <option value="E">E</option>
-                        <option value="F">F</option>
-                        <option value="F#">F#</option>
-                        <option value="G">G</option>
-                        <option value="G#">G#</option>
-                        <option value="A">A</option>
-                        <option value="A#">A#</option>
-                        <option value="B">B</option>
-                    </select>
+                        {loading ? 'Getting Chords...' : 'Get Complementary Chords'}
+                    </button>
                 </div>
-                
-                <button 
-                    className={`px-4 py-2 rounded-md font-medium ${
-                        loading 
-                            ? 'bg-gray-400 cursor-not-allowed' 
-                            : 'bg-blue-500 hover:bg-blue-600'
-                    } text-white`} 
-                    onClick={submit}
-                    disabled={loading}
-                >
-                    {loading ? 'Getting Complementary Chords...' : 'Get Complementary Chords'}
-                </button>
 
                 {error && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
@@ -100,15 +85,26 @@ export default function Page() {
             </div>
 
             {complementaryChords.length > 0 && (
-                <div className="space-y-2">
+                <div className="space-y-4">
                     <h2 className="text-xl font-semibold">Complementary Chords</h2>
-                    <div className="bg-green-50 border border-green-200 rounded-md p-4">
-                        <p className="text-green-800">
-                            {complementaryChords.join(", ")}
-                        </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-6">
+                        {complementaryChords.map((chordShortName) => {
+                            const chord = findChordByShortName(chordShortName);
+                            if (!chord) return null;
+                            
+                            return (
+                                <div 
+                                    key={chord.shortName} 
+                                    className="bg-white p-1 rounded-xl border-2 border-gray-200"
+                                >
+                                    <ChordDiagram chord={chord} />
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             )}
         </div>
+        
     );
 }
