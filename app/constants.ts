@@ -254,4 +254,184 @@ export const chordData: ChordData[] = [
         barres: [{ fromString: 5, toString: 1, fret: 3 }], // Barre across A, D, G, B, E strings
         position: 1,
     },
+    // Sharp chords - F#
+    {
+        title: 'F# Major',
+        shortName: 'F#',
+        fingers: [[1, 2], [2, 2], [3, 3], [4, 4], [5, 4], [6, 2]],
+        barres: [{ fromString: 6, toString: 1, fret: 2 }], // Barre across all strings
+        position: 2,
+    },
+    {
+        title: 'F# Minor',
+        shortName: 'F#m',
+        fingers: [[1, 2], [2, 2], [3, 2], [4, 4], [5, 4], [6, 2]],
+        barres: [{ fromString: 6, toString: 1, fret: 2 }], // Barre across all strings
+        position: 2,
+    },
+    {
+        title: 'F#7',
+        shortName: 'F#7',
+        fingers: [[1, 2], [2, 2], [3, 3], [4, 4], [5, 4], [6, 2]],
+        barres: [{ fromString: 6, toString: 1, fret: 2 }], // Barre across all strings
+        position: 2,
+    },
+    {
+        title: 'F# Minor 7',
+        shortName: 'F#m7',
+        fingers: [[1, 2], [2, 2], [3, 2], [4, 4], [5, 4], [6, 2]],
+        barres: [{ fromString: 6, toString: 1, fret: 2 }], // Barre across all strings
+        position: 2,
+    },
+    {
+        title: 'F# Major 7',
+        shortName: 'F#Maj7',
+        fingers: [[1, 2], [2, 2], [3, 3], [4, 4], [5, 4], [6, 2]],
+        barres: [{ fromString: 6, toString: 1, fret: 2 }], // Barre across all strings
+        position: 2,
+    },
+    // Sharp chords - G#
+    {
+        title: 'G# Major',
+        shortName: 'G#',
+        fingers: [[1, 3], [2, 3], [3, 4], [4, 5], [5, 5], [6, 3]],
+        barres: [{ fromString: 6, toString: 1, fret: 3 }], // Barre across all strings
+        position: 3,
+    },
+    {
+        title: 'G# Minor',
+        shortName: 'G#m',
+        fingers: [[1, 3], [2, 3], [3, 3], [4, 5], [5, 5], [6, 3]],
+        barres: [{ fromString: 6, toString: 1, fret: 3 }], // Barre across all strings
+        position: 3,
+    },
+    {
+        title: 'G#7',
+        shortName: 'G#7',
+        fingers: [[1, 3], [2, 3], [3, 4], [4, 5], [5, 5], [6, 3]],
+        barres: [{ fromString: 6, toString: 1, fret: 3 }], // Barre across all strings
+        position: 3,
+    },
+    {
+        title: 'G# Minor 7',
+        shortName: 'G#m7',
+        fingers: [[1, 3], [2, 3], [3, 3], [4, 5], [5, 5], [6, 3]],
+        barres: [{ fromString: 6, toString: 1, fret: 3 }], // Barre across all strings
+        position: 3,
+    },
+    {
+        title: 'G# Major 7',
+        shortName: 'G#Maj7',
+        fingers: [[1, 3], [2, 3], [3, 4], [4, 5], [5, 5], [6, 3]],
+        barres: [{ fromString: 6, toString: 1, fret: 3 }], // Barre across all strings
+        position: 3,
+    },
+    // Sharp chords - A#
+    {
+        title: 'A# Major',
+        shortName: 'A#',
+        fingers: [[1, 1], [2, 1], [3, 2], [4, 3], [5, 3], [6, 1]],
+        barres: [{ fromString: 6, toString: 1, fret: 1 }], // Barre across all strings
+        position: 1,
+    },
+    {
+        title: 'A# Minor',
+        shortName: 'A#m',
+        fingers: [[1, 1], [2, 1], [3, 1], [4, 3], [5, 3], [6, 1]],
+        barres: [{ fromString: 6, toString: 1, fret: 1 }], // Barre across all strings
+        position: 1,
+    },
+    {
+        title: 'A#7',
+        shortName: 'A#7',
+        fingers: [[1, 1], [2, 1], [3, 2], [4, 3], [5, 3], [6, 1]],
+        barres: [{ fromString: 6, toString: 1, fret: 1 }], // Barre across all strings
+        position: 1,
+    },
+    {
+        title: 'A# Minor 7',
+        shortName: 'A#m7',
+        fingers: [[1, 1], [2, 1], [3, 1], [4, 3], [5, 3], [6, 1]],
+        barres: [{ fromString: 6, toString: 1, fret: 1 }], // Barre across all strings
+        position: 1,
+    },
+    {
+        title: 'A# Major 7',
+        shortName: 'A#Maj7',
+        fingers: [[1, 1], [2, 1], [3, 2], [4, 3], [5, 3], [6, 1]],
+        barres: [{ fromString: 6, toString: 1, fret: 1 }], // Barre across all strings
+        position: 1,
+    },
+    // Sharp chords - C#
+    {
+        title: 'C# Major',
+        shortName: 'C#',
+        fingers: [[1, 1], [2, 2], [3, 1], [4, 3], [5, 4], [6, 'x']],
+        barres: [],
+        position: 1,
+    },
+    {
+        title: 'C# Minor',
+        shortName: 'C#m',
+        fingers: [[1, 4], [2, 5], [3, 6], [4, 6], [5, 4], [6, 'x']],
+        barres: [{ fromString: 5, toString: 1, fret: 4 }], // Barre across A, D, G, B, E strings
+        position: 4,
+    },
+    {
+        title: 'C#7',
+        shortName: 'C#7',
+        fingers: [[1, 1], [2, 2], [3, 1], [4, 3], [5, 4], [6, 'x']],
+        barres: [],
+        position: 1,
+    },
+    {
+        title: 'C# Minor 7',
+        shortName: 'C#m7',
+        fingers: [[1, 4], [2, 5], [3, 6], [4, 6], [5, 4], [6, 'x']],
+        barres: [{ fromString: 5, toString: 1, fret: 4 }], // Barre across A, D, G, B, E strings
+        position: 4,
+    },
+    {
+        title: 'C# Major 7',
+        shortName: 'C#Maj7',
+        fingers: [[1, 1], [2, 2], [3, 1], [4, 3], [5, 1], [6, 'x']],
+        barres: [],
+        position: 1,
+    },
+    // Sharp chords - D#
+    {
+        title: 'D# Major',
+        shortName: 'D#',
+        fingers: [[1, 3], [2, 4], [3, 3], [4, 1], [5, 'x'], [6, 'x']],
+        barres: [],
+        position: 1,
+    },
+    {
+        title: 'D# Minor',
+        shortName: 'D#m',
+        fingers: [[1, 2], [2, 4], [3, 3], [4, 1], [5, 'x'], [6, 'x']],
+        barres: [],
+        position: 1,
+    },
+    {
+        title: 'D#7',
+        shortName: 'D#7',
+        fingers: [[1, 3], [2, 4], [3, 3], [4, 1], [5, 'x'], [6, 'x']],
+        barres: [],
+        position: 1,
+    },
+    {
+        title: 'D# Minor 7',
+        shortName: 'D#m7',
+        fingers: [[1, 2], [2, 4], [3, 3], [4, 1], [5, 'x'], [6, 'x']],
+        barres: [],
+        position: 1,
+    },
+    {
+        title: 'D# Major 7',
+        shortName: 'D#Maj7',
+        fingers: [[1, 3], [2, 4], [3, 3], [4, 1], [5, 'x'], [6, 'x']],
+        barres: [],
+        position: 1,
+    },
 ]
