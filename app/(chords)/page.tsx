@@ -1,12 +1,11 @@
 'use client';
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import ChordSelector from "@/components/chord-selector";
 import SelectedChordsDisplay from "@/components/selected-chords-display";
 import RecommendationsButton from "@/components/recommendations-button";
 import ComplementaryChordsDisplay from "@/components/complementary-chords-display";
-import ChordDiagram from "@/components/chordDiagram";
 import SongSuggestions from "@/components/song-suggestions";
 import Footer from "@/components/footer";
 import { chordData } from "@/app/constants";
@@ -103,7 +102,7 @@ export default function Page() {
     return (
         <>
             <div className="container mx-auto p-4 flex flex-col gap-8">
-                <h1 className="text-2xl font-bold">Chord Progression Helper</h1>
+                <h1 className="text-2xl font-bold">MusicAI</h1>
 
                 <ChordSelector
                     selectedChords={selectedChords}
