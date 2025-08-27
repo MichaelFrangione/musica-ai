@@ -3,8 +3,6 @@ import { auth } from '@/app/(auth)/auth';
 import { myProvider } from '@/lib/ai/providers';
 import { streamText } from 'ai';
 import { systemPrompt } from '@/lib/ai/prompts';
-import { generateUUID } from '@/lib/utils';
-
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
@@ -29,7 +27,7 @@ export async function POST(request: NextRequest) {
     // Stream the response
     const result = streamText({
       model,
-      system: systemPrompt({ selectedChatModel: 'chat-model-json', requestHints: { longitude: 0, latitude: 0, city: '', country: '' } }),
+      system: systemPrompt({ selectedChatModel: 'chat-model-json', requestHints: { longitude: '0', latitude: '0', city: '', country: '' } }),
       messages: [
         {
           role: 'user',
