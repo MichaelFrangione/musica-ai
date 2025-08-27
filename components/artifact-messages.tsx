@@ -13,7 +13,6 @@ interface ArtifactMessagesProps {
   status: UseChatHelpers<ChatMessage>['status'];
   votes: Array<Vote> | undefined;
   messages: ChatMessage[];
-  setMessages: UseChatHelpers<ChatMessage>['setMessages'];
   regenerate: UseChatHelpers<ChatMessage>['regenerate'];
   isReadonly: boolean;
   artifactStatus: UIArtifact['status'];
@@ -24,7 +23,6 @@ function PureArtifactMessages({
   status,
   votes,
   messages,
-  setMessages,
   regenerate,
   isReadonly,
 }: ArtifactMessagesProps) {
@@ -55,7 +53,6 @@ function PureArtifactMessages({
               ? votes.find((vote) => vote.messageId === message.id)
               : undefined
           }
-          setMessages={setMessages}
           regenerate={regenerate}
           isReadonly={isReadonly}
           requiresScrollPadding={

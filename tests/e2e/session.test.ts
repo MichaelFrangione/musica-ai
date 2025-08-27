@@ -15,14 +15,15 @@ test.describe
         throw new Error('Failed to load page');
       }
 
-      let request = response.request();
+            let request: any = response.request();
 
-      const chain = [];
+    const chain = [];
 
-      while (request) {
-        chain.unshift(request.url());
-        request = request.redirectedFrom();
-      }
+    while (request) {
+      chain.unshift(request.url());
+      const redirected = request.redirectedFrom();
+      request = redirected || null;
+    }
 
       expect(chain).toEqual([
         'http://localhost:3000/',
@@ -57,13 +58,14 @@ test.describe
         throw new Error('Failed to load page');
       }
 
-      let request = response.request();
+        let request: any = response.request();
 
       const chain = [];
 
       while (request) {
         chain.unshift(request.url());
-        request = request.redirectedFrom();
+        const redirected = request.redirectedFrom();
+        request = redirected || null;
       }
 
       expect(chain).toEqual(['http://localhost:3000/']);

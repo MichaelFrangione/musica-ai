@@ -1,8 +1,8 @@
 'use client'
 
-import { Chord, SVGuitarChord } from 'svguitar'
+import { type Chord, SVGuitarChord } from 'svguitar'
 import { useEffect, useRef } from 'react'
-import { ChordData } from '@/app/constants'
+import type { ChordData } from '@/app/constants'
 
 interface ChordDiagramProps {
     chord: ChordData;

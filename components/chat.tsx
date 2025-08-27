@@ -131,7 +131,6 @@ export function Chat({
       <div className="flex flex-col min-w-0 h-dvh bg-background">
         <ChatHeader
           chatId={id}
-          selectedModelId={initialChatModel}
           selectedVisibilityType={initialVisibilityType}
           isReadonly={isReadonly}
           session={session}
@@ -142,7 +141,6 @@ export function Chat({
           status={status}
           votes={votes}
           messages={messages}
-          setMessages={setMessages}
           regenerate={regenerate}
           isReadonly={isReadonly}
           isArtifactVisible={isArtifactVisible}
@@ -159,7 +157,6 @@ export function Chat({
               attachments={attachments}
               setAttachments={setAttachments}
               messages={messages}
-              setMessages={setMessages}
               sendMessage={sendMessage}
               selectedVisibilityType={visibilityType}
             />
@@ -177,7 +174,6 @@ export function Chat({
         setAttachments={setAttachments}
         sendMessage={sendMessage}
         messages={messages}
-        setMessages={setMessages}
         regenerate={regenerate}
         votes={votes}
         isReadonly={isReadonly}

@@ -1,4 +1,4 @@
-import { expect, Page } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 export class ArtifactPage {
   constructor(private page: Page) {}
@@ -91,14 +91,7 @@ export class ArtifactPage {
       element: lastMessageElement,
       content,
       attachments,
-      async edit(newMessage: string) {
-        await page.getByTestId('message-edit-button').click();
-        await page.getByTestId('message-editor').fill(newMessage);
-        await page.getByTestId('message-editor-send-button').click();
-        await expect(
-          page.getByTestId('message-editor-send-button'),
-        ).not.toBeVisible();
-      },
+
     };
   }
 

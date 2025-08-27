@@ -25,14 +25,14 @@ export default function RecommendationsButton({
 
             {loadingChords && (
                 <div className="flex justify-center items-center gap-3">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                    <div className="animate-spin rounded-full size-6 border-b-2 border-blue-600" />
                     <span className="text-lg text-blue-600 font-medium">Getting chord recommendations...</span>
                 </div>
             )}
 
             {loadingSongs && (
                 <div className="flex justify-center items-center gap-3">
-                    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-green-600"></div>
+                    <div className="animate-spin rounded-full size-6 border-b-2 border-green-600" />
                     <span className="text-lg text-green-600 font-medium">Getting song suggestions...</span>
                 </div>
             )}
@@ -44,9 +44,10 @@ export default function RecommendationsButton({
                     </div>
 
                     <button
+                        type="button"
                         onClick={onSubmit}
                         disabled={loadingChords || loadingSongs}
-                        className="px-12 py-6 text-2xl font-bold bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:scale-110"
+                        className="px-12 py-6 text-2xl font-bold bg-blue-600 text-white rounded-xl hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-110"
                     >
                         Get Chord Recommendations
                     </button>

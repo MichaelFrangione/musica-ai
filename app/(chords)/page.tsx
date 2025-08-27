@@ -130,9 +130,10 @@ export default function Page() {
                 {complementaryChords.length > 0 && songSuggestions && (
                     <div className="flex justify-center">
                         <button
+                            type="button"
                             onClick={resetAll}
                             disabled={loadingChords || loadingSongs}
-                            className="px-8 py-6 text-xl font-bold bg-gray-500 text-white rounded-xl hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                            className="px-8 py-6 text-xl font-bold bg-gray-500 text-white rounded-xl hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
                         >
                             Choose a different set of chords
                         </button>

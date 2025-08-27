@@ -38,7 +38,6 @@ function PureMultimodalInput({
   attachments,
   setAttachments,
   messages,
-  setMessages,
   sendMessage,
   className,
   selectedVisibilityType,
@@ -51,7 +50,6 @@ function PureMultimodalInput({
   attachments: Array<Attachment>;
   setAttachments: Dispatch<SetStateAction<Array<Attachment>>>;
   messages: Array<UIMessage>;
-  setMessages: UseChatHelpers<ChatMessage>['setMessages'];
   sendMessage: UseChatHelpers<ChatMessage>['sendMessage'];
   className?: string;
   selectedVisibilityType: VisibilityType;
@@ -311,7 +309,7 @@ function PureMultimodalInput({
 
       <div className="absolute bottom-0 right-0 p-2 w-fit flex flex-row justify-end">
         {status === 'submitted' ? (
-          <StopButton stop={stop} setMessages={setMessages} />
+          <StopButton stop={stop} />
         ) : (
           <SendButton
             input={input}
@@ -364,10 +362,8 @@ const AttachmentsButton = memo(PureAttachmentsButton);
 
 function PureStopButton({
   stop,
-  setMessages,
 }: {
   stop: () => void;
-  setMessages: UseChatHelpers<ChatMessage>['setMessages'];
 }) {
   return (
     <Button
@@ -376,7 +372,6 @@ function PureStopButton({
       onClick={(event) => {
         event.preventDefault();
         stop();
-        setMessages((messages) => messages);
       }}
     >
       <StopIcon size={14} />

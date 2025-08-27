@@ -306,7 +306,6 @@ const PureToolbar = ({
   sendMessage,
   status,
   stop,
-  setMessages,
   artifactKind,
 }: {
   isToolbarVisible: boolean;
@@ -314,7 +313,6 @@ const PureToolbar = ({
   status: UseChatHelpers<ChatMessage>['status'];
   sendMessage: UseChatHelpers<ChatMessage>['sendMessage'];
   stop: UseChatHelpers<ChatMessage>['stop'];
-  setMessages: UseChatHelpers<ChatMessage>['setMessages'];
   artifactKind: ArtifactKind;
 }) => {
   const toolbarRef = useRef<HTMLDivElement>(null);
@@ -382,19 +380,19 @@ const PureToolbar = ({
           isToolbarVisible
             ? selectedTool === 'adjust-reading-level'
               ? {
-                  opacity: 1,
-                  y: 0,
-                  height: 6 * 43,
-                  transition: { delay: 0 },
-                  scale: 0.95,
-                }
+                opacity: 1,
+                y: 0,
+                height: 6 * 43,
+                transition: { delay: 0 },
+                scale: 0.95,
+              }
               : {
-                  opacity: 1,
-                  y: 0,
-                  height: toolsByArtifactKind.length * 50,
-                  transition: { delay: 0 },
-                  scale: 1,
-                }
+                opacity: 1,
+                y: 0,
+                height: toolsByArtifactKind.length * 50,
+                transition: { delay: 0 },
+                scale: 1,
+              }
             : { opacity: 1, y: 0, height: 54, transition: { delay: 0 } }
         }
         exit={{ opacity: 0, y: -20, transition: { duration: 0.1 } }}
@@ -427,7 +425,6 @@ const PureToolbar = ({
             className="p-3"
             onClick={() => {
               stop();
-              setMessages((messages) => messages);
             }}
           >
             <StopIcon />

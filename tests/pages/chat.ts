@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { chatModels } from '@/lib/ai/models';
+
 import { expect, type Page } from '@playwright/test';
 
 export class ChatPage {
@@ -96,24 +96,7 @@ export class ChatPage {
     await this.page.getByTestId('attachments-button').click();
   }
 
-  public async getSelectedModel() {
-    const modelId = await this.page.getByTestId('model-selector').innerText();
-    return modelId;
-  }
 
-  public async chooseModelFromSelector(chatModelId: string) {
-    const chatModel = chatModels.find(
-      (chatModel) => chatModel.id === chatModelId,
-    );
-
-    if (!chatModel) {
-      throw new Error(`Model with id ${chatModelId} not found`);
-    }
-
-    await this.page.getByTestId('model-selector').click();
-    await this.page.getByTestId(`model-selector-item-${chatModelId}`).click();
-    expect(await this.getSelectedModel()).toBe(chatModel.name);
-  }
 
   public async getSelectedVisibility() {
     const visibilityId = await this.page
@@ -201,14 +184,7 @@ export class ChatPage {
       element: lastMessageElement,
       content,
       attachments,
-      async edit(newMessage: string) {
-        await page.getByTestId('message-edit-button').click();
-        await page.getByTestId('message-editor').fill(newMessage);
-        await page.getByTestId('message-editor-send-button').click();
-        await expect(
-          page.getByTestId('message-editor-send-button'),
-        ).not.toBeVisible();
-      },
+
     };
   }
 

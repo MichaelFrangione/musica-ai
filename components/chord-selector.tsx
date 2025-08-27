@@ -51,14 +51,14 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
 
         if (chord.shortName === root) {
             groups[root].Major = chord;
-        } else if (chord.shortName === root + 'm') {
+        } else if (chord.shortName === `${root}m`) {
             groups[root].Minor = chord;
-        } else if (chord.shortName === root + '7') {
+        } else if (chord.shortName === `${root}7`) {
             groups[root]['7'] = chord;
-        } else if (chord.shortName === root + 'm7') {
-            groups[root]['m7'] = chord;
-        } else if (chord.shortName === root + 'Maj7') {
-            groups[root]['Maj7'] = chord;
+        } else if (chord.shortName === `${root}m7`) {
+            groups[root].m7 = chord;
+        } else if (chord.shortName === `${root}Maj7`) {
+            groups[root].Maj7 = chord;
         }
 
         return groups;
@@ -82,9 +82,10 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
 
                     return (
                         <button
+                            type="button"
                             key={root}
                             onClick={() => selectRoot(root)}
-                            className={`px-4 py-3 text-lg font-bold rounded-lg border-2 transition-all duration-300 ${root.length > 1 ? 'min-w-[4rem]' : 'min-w-[3rem]'
+                            className={`px-4 py-3 text-lg font-bold rounded-lg border-2 transition-all duration-300 ${root.length > 1 ? 'min-w-16' : 'min-w-12'
                                 } ${selectedRoot === root
                                     ? 'bg-blue-600 text-white border-blue-600 shadow-lg scale-105'
                                     : hasSelectedChords
@@ -103,7 +104,7 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
                 {selectedRoot ? (
                     <div
                         key={selectedRoot}
-                        className="mb-4 transform transition-all duration-500 ease-out opacity-100 translate-y-0"
+                        className="mb-4 transition-all duration-500 ease-out opacity-100 translate-y-0"
                     >
                         <div className="max-w-4xl mx-auto" >
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center justify-content-center">
@@ -112,7 +113,7 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
                                     return (
                                         <div
                                             key={`${selectedRoot}-${type}`}
-                                            className="text-center transform transition-all duration-500 ease-out opacity-100 translate-y-0"
+                                            className="text-center transition-all duration-500 ease-out opacity-100 translate-y-0"
                                             style={{
                                                 transitionDelay: `${index * 100}ms`,
                                                 animation: `slideInUp 0.5s ease-out ${index * 100}ms both`
@@ -120,9 +121,17 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
                                         >
                                             {chord ? (
                                                 <div
-                                                    className="inline-block cursor-pointer transform transition-all duration-500 ease-out opacity-100 scale-100"
+                                                    role="button"
+                                                    tabIndex={0}
+                                                    className="inline-block cursor-pointer transition-all duration-500 ease-out opacity-100 scale-100"
                                                     style={{ transitionDelay: `${index * 200}ms` }}
                                                     onClick={() => toggleChordSelection(chord.shortName)}
+                                                    onKeyDown={(e) => {
+                                                        if (e.key === 'Enter' || e.key === ' ') {
+                                                            e.preventDefault();
+                                                            toggleChordSelection(chord.shortName);
+                                                        }
+                                                    }}
                                                 >
                                                     <div
                                                         className="bg-white rounded-lg border-2 border-gray-200 hover:border-gray-300 transition-all duration-200 hover:shadow-md"
@@ -135,7 +144,7 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className="w-32 h-40 flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-300 rounded-lg transform transition-all duration-500 ease-out opacity-100"
+                                                <div className="w-32 h-40 flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-300 rounded-lg transition-all duration-500 ease-out opacity-100"
                                                     style={{ transitionDelay: `${index * 200}ms` }}>
                                                     Not Available
                                                 </div>
@@ -149,8 +158,8 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
                 ) : (
                     <div className="flex items-center justify-center h-full mt-10">
                         <div className="text-center text-gray-400">
-                            <div className="w-16 h-16 mx-auto mb-4">
-                                <svg className="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <div className="size-16 mx-auto mb-4">
+                                <svg className="size-full" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
                                 </svg>
                             </div>

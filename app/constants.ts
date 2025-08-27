@@ -1,4 +1,4 @@
-import { Chord } from "svguitar";
+import type { Chord } from "svguitar";
 
 export interface ChordData extends Chord {
     shortName: string

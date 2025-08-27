@@ -21,7 +21,7 @@ export default function SelectedChordsDisplay({ selectedChords, setSelectedChord
             <div className="text-center mb-8">
                 <h2 className="text-3xl font-bold text-purple-800 mb-3">Selected Chords</h2>
                 <p className="text-purple-700 text-lg mb-4">Your chosen chord progression foundation</p>
-                <div className="w-24 h-1 bg-purple-400 mx-auto rounded-full"></div>
+                <div className="w-24 h-1 bg-purple-400 mx-auto rounded-full" />
             </div>
 
             {selectedChords.length === 0 ? (
@@ -43,11 +43,12 @@ export default function SelectedChordsDisplay({ selectedChords, setSelectedChord
                             return (
                                 <div
                                     key={chord.shortName}
-                                    className="relative bg-white p-4 rounded-2xl border-2 border-purple-200 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                                    className="relative bg-white p-4 rounded-2xl border-2 border-purple-200 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                                 >
                                     <button
+                                        type="button"
                                         onClick={() => setSelectedChords(selectedChords.filter(c => c !== chordShortName))}
-                                        className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 hover:scale-110 shadow-lg z-10"
+                                        className="absolute -top-2 -right-2 size-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 hover:scale-110 shadow-lg z-10"
                                     >
                                         ×
                                     </button>
@@ -59,6 +60,7 @@ export default function SelectedChordsDisplay({ selectedChords, setSelectedChord
 
                     <div className="text-center mt-8">
                         <button
+                            type="button"
                             onClick={() => setSelectedChords([])}
                             className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg"
                         >

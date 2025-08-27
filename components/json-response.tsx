@@ -109,7 +109,7 @@ export function JSONResponse({ content, timestamp }: JSONResponseProps) {
               onClick={copyToClipboard}
               className="text-green-700 border-green-300 hover:bg-green-100"
             >
-              <Copy className="h-4 w-4 mr-1" />
+              <Copy className="size-4 mr-1" />
               Copy
             </Button>
             <Button
@@ -118,7 +118,7 @@ export function JSONResponse({ content, timestamp }: JSONResponseProps) {
               onClick={downloadJSON}
               className="text-green-700 border-green-300 hover:bg-green-100"
             >
-              <Download className="h-4 w-4 mr-1" />
+              <Download className="size-4 mr-1" />
               Download
             </Button>
           </div>

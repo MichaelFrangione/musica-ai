@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { myProvider } from '@/lib/ai/providers';
 import { streamText } from 'ai';
 
@@ -58,7 +58,7 @@ Please suggest songs that would work well with these chord progressions. Respond
     }
 
     // Try to parse the response as JSON
-    let parsedSuggestions;
+    let parsedSuggestions: any;
     try {
       parsedSuggestions = JSON.parse(fullResponse);
     } catch (parseError) {
