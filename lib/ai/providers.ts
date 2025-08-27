@@ -19,6 +19,7 @@ export const myProvider = isTestEnvironment
         'chat-model-reasoning': reasoningModel,
         'title-model': titleModel,
         'artifact-model': artifactModel,
+        'chat-model-json': chatModel, // Use test model for JSON responses
       },
     })
   : customProvider({
@@ -30,6 +31,7 @@ export const myProvider = isTestEnvironment
         }),
         'title-model': xai('grok-2-1212'),
         'artifact-model': xai('grok-2-1212'),
+        'chat-model-json': xai('grok-3-mini-beta'), // Use Grok for JSON responses
       },
       imageModels: {
         'small-model': xai.imageModel('grok-2-image'),

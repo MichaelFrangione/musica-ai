@@ -17,4 +17,9 @@ export const chatModels: Array<ChatModel> = [
     name: 'Reasoning model',
     description: 'Uses advanced reasoning',
   },
+  {
+    id: 'chat-model-json',
+    name: 'JSON Response Model',
+    description: 'Returns structured JSON responses',
+  },
 ];

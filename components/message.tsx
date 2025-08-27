@@ -16,9 +16,26 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { MessageEditor } from './message-editor';
 import { DocumentPreview } from './document-preview';
 import { MessageReasoning } from './message-reasoning';
+import { JSONResponse } from './json-response';
 import type { UseChatHelpers } from '@ai-sdk/react';
 import type { ChatMessage } from '@/lib/types';
 import { useDataStream } from './data-stream-provider';
+
+// Helper function to detect JSON responses
+function isJSONResponse(text: string): boolean {
+  try {
+    const trimmed = text.trim();
+    // Check if it starts with { or [ and ends with } or ]
+    if ((trimmed.startsWith('{') && trimmed.endsWith('}')) || 
+        (trimmed.startsWith('[') && trimmed.endsWith(']'))) {
+      JSON.parse(trimmed);
+      return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
+}
 
 // Type narrowing is handled by TypeScript's control flow analysis
 // The AI SDK provides proper discriminated unions for tool calls
@@ -142,7 +159,15 @@ const PurePreviewMessage = ({
                             message.role === 'user',
                         })}
                       >
-                        <Markdown>{sanitizeText(part.text)}</Markdown>
+                        {/* Check if this is a JSON response */}
+                        {message.role === 'assistant' && isJSONResponse(part.text) ? (
+                          <JSONResponse 
+                            content={part.text} 
+                            timestamp={new Date()} 
+                          />
+                        ) : (
+                          <Markdown>{sanitizeText(part.text)}</Markdown>
+                        )}
                       </div>
                     </div>
                   );
