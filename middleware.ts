@@ -24,11 +24,12 @@ export async function middleware(request: NextRequest) {
   });
 
   if (!token) {
-    const redirectUrl = encodeURIComponent(request.url);
-
-    return NextResponse.redirect(
-      new URL(`/api/auth/guest?redirectUrl=${redirectUrl}`, request.url),
-    );
+    // Redirect unauthenticated users to login page instead of automatic guest access
+    // Users can then choose to sign in regularly or as a guest
+    if (!['/login', '/register'].includes(pathname)) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+    return NextResponse.next();
   }
 
   const isGuest = guestRegex.test(token?.email ?? '');
@@ -43,7 +44,6 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/',
-    '/chat/:id',
     '/api/:path*',
     '/login',
     '/register',

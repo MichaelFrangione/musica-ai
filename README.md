@@ -50,6 +50,19 @@ You will need to use the environment variables [defined in `.env.example`](.env.
 
 > Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various AI and authentication provider accounts.
 
+### Guest Authentication
+
+The application supports guest access for users who want to try features without creating an account. To configure guest access:
+
+1. **Set Guest Password**: Add the following to your `.env` file:
+   ```bash
+   GUEST_PASSWORD=your-secure-guest-password
+   ```
+
+2. **Default Password**: If no environment variable is set, the default guest password is `musicai-guest-2024`
+
+3. **Security**: Choose a strong password that you can share with intended users. The guest password is separate from your main authentication system.
+
 1. Install Vercel CLI: `npm i -g vercel`
 2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
 3. Download your environment variables: `vercel env pull`

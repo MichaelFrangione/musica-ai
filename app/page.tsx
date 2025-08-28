@@ -1,14 +1,12 @@
 'use client';
 
-import { useState } from "react";
-
 import ChordSelector from "@/components/chord-selector";
 import SelectedChordsDisplay from "@/components/selected-chords-display";
 import RecommendationsButton from "@/components/recommendations-button";
 import ComplementaryChordsDisplay from "@/components/complementary-chords-display";
 import SongSuggestions from "@/components/song-suggestions";
-
 import { chordData } from "@/app/constants";
+import { useState } from "react";
 
 interface ComplementaryChordsResponse {
     complementary_chords: string[];
@@ -16,16 +14,13 @@ interface ComplementaryChordsResponse {
     message: string;
 }
 
-export default function Page() {
-    console.log('🎵 Chords page is rendering!');
-
+export default function HomePage() {
     const [selectedChords, setSelectedChords] = useState<string[]>([]);
     const [complementaryChords, setComplementaryChords] = useState<string[]>([]);
     const [loadingChords, setLoadingChords] = useState<boolean>(false);
     const [loadingSongs, setLoadingSongs] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [songSuggestions, setSongSuggestions] = useState<string>("");
-
 
     const submit = async () => {
         if (selectedChords.length === 0) {
@@ -71,7 +66,7 @@ export default function Page() {
             });
 
             if (!songResponse.ok) {
-                const songErrorData = await songResponse.json();
+                const songErrorData = await response.json();
                 throw new Error(songErrorData.error || `HTTP error! status: ${response.status}`);
             }
 
@@ -96,13 +91,8 @@ export default function Page() {
         setError("");
     };
 
-    // Helper function to find chord data by shortName
-    const findChordByShortName = (shortName: string) => {
-        return chordData.find(chord => chord.shortName === shortName);
-    };
-
     return (
-        <div className="w-full">
+        <>
             <div className="p-6 flex flex-col gap-8">
                 <ChordSelector
                     selectedChords={selectedChords}
@@ -150,6 +140,8 @@ export default function Page() {
 
                 <SongSuggestions songSuggestions={songSuggestions} />
             </div>
-        </div>
+
+
+        </>
     );
 }

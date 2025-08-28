@@ -3,7 +3,7 @@ import NextAuth, { type DefaultSession } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import { createGuestUser, getUser } from '@/lib/db/queries';
 import { authConfig } from './auth.config';
-import { DUMMY_PASSWORD } from '@/lib/constants';
+import { DUMMY_PASSWORD, GUEST_PASSWORD } from '@/lib/constants';
 import type { DefaultJWT } from 'next-auth/jwt';
 
 export type UserType = 'guest' | 'regular';
@@ -39,8 +39,16 @@ export const {
   ...authConfig,
   providers: [
     Credentials({
-      credentials: {},
+      id: 'credentials',
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' }
+      },
       async authorize({ email, password }: any) {
+        if (!email || !password) {
+          return null;
+        }
+
         const users = await getUser(email);
 
         if (users.length === 0) {
@@ -64,10 +72,33 @@ export const {
     }),
     Credentials({
       id: 'guest',
-      credentials: {},
-      async authorize() {
-        const [guestUser] = await createGuestUser();
-        return { ...guestUser, type: 'guest' };
+      credentials: {
+        password: { label: 'Guest Password', type: 'password' }
+      },
+      async authorize({ password }: any) {
+        console.log('Guest auth attempt with password:', password ? '***' : 'undefined');
+        console.log('Expected password:', GUEST_PASSWORD);
+        
+        if (!password) {
+          console.log('No password provided');
+          return null;
+        }
+
+        // Verify the guest password matches the GUEST_PASSWORD
+        if (password !== GUEST_PASSWORD) {
+          console.log('Password mismatch');
+          return null;
+        }
+        
+        try {
+          console.log('Creating guest user...');
+          const [guestUser] = await createGuestUser();
+          console.log('Guest user created:', guestUser);
+          return { ...guestUser, type: 'guest' };
+        } catch (error) {
+          console.error('Error creating guest user:', error);
+          return null;
+        }
       },
     }),
   ],

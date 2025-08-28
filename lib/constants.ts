@@ -10,4 +10,6 @@ export const isTestEnvironment = Boolean(
 
 export const guestRegex = /^guest-\d+$/;
 
+// Use environment variable for guest password, fallback to generated one
+export const GUEST_PASSWORD = process.env.GUEST_PASSWORD || 'musicai-guest-2024';
 export const DUMMY_PASSWORD = generateDummyPassword();
