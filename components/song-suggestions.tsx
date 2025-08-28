@@ -147,8 +147,8 @@ function SongSuggestions({ songSuggestions, loadingSongs }: SongSuggestionsProps
                 <div className="w-24 h-1 bg-green-400 mx-auto mt-4 rounded-full" />
 
                 {loadingSongs && (
-                    <div className="mt-4 flex justify-center items-center gap-3">
-                        <div className="animate-spin rounded-full size-6 border-b-2 border-green-600" />
+                    <div className="mt-6 flex justify-center items-center gap-">
+                        <div className="animate-spin rounded-full size-6 border-b-2 border-green-600 mr-2" />
                         <span className="text-lg text-green-800 font-medium">Getting song suggestions...</span>
                     </div>
                 )}

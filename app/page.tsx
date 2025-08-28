@@ -9,6 +9,7 @@ import ChordDiagram from "@/components/chordDiagram";
 import { chordData } from "@/app/constants";
 import { useState } from "react";
 import ChordProgressIndicator from "@/components/chord-progress-indicator";
+import { useMiniPlayer } from "@/contexts/mini-player-context";
 
 interface ComplementaryChordsResponse {
     complementary_chords: string[];
@@ -31,6 +32,7 @@ export default function HomePage() {
     const [error, setError] = useState<string>("");
     const [songSuggestions, setSongSuggestions] = useState<string>("");
     const [showChordSelector, setShowChordSelector] = useState<boolean>(true);
+    const { hideMiniPlayer } = useMiniPlayer();
 
     const submit = async () => {
         if (selectedChords.length === 0) {
@@ -103,6 +105,7 @@ export default function HomePage() {
         setSongSuggestions("");
         setError("");
         setShowChordSelector(true);
+        hideMiniPlayer(); // Close the mini-player when resetting
     };
 
     return (
@@ -116,6 +119,7 @@ export default function HomePage() {
                             setComplementaryChords([]);
                             setChordAnalysis(null);
                             setSongSuggestions("");
+                            hideMiniPlayer(); // Close the mini-player when clearing complementary chords
                         }}
                     />
                 )}

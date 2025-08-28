@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     // Create the prompt for complementary chords and analysis
     const prompt = `Given the selected chords: ${selectedChords.join(', ')}, provide:
-1. Complementary chords that would work well in a progression
+1. Complementary chords that would work well in a progression at least 3 but max 10.
 2. A musical analysis of the chord progression
 
 Return the answer in this exact JSON format:

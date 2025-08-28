@@ -2,6 +2,7 @@ import { Toaster } from 'sonner';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
+import { MiniPlayerProvider } from '@/contexts/mini-player-context';
 
 import './globals.css';
 import { SessionProvider } from 'next-auth/react';
@@ -89,9 +90,11 @@ export default async function RootLayout({
         >
           <Toaster position="top-center" />
           <SessionProvider session={session}>
-            <ChordsLayoutWrapper user={user}>
-              {children}
-            </ChordsLayoutWrapper>
+            <MiniPlayerProvider>
+              <ChordsLayoutWrapper user={user}>
+                {children}
+              </ChordsLayoutWrapper>
+            </MiniPlayerProvider>
           </SessionProvider>
         </ThemeProvider>
       </body>

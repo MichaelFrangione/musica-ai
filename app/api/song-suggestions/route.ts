@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
 
     const systemPrompt = `You are a music expert who suggests songs based on chord progressions. 
 
-Given the selected chords and complementary chords, suggest 5-8 songs that feature similar chord progressions or could work well with these chords organize them by their popularity.
+Given the selected chords and complementary chords, suggest 3-9 songs that feature similar chord progressions or could work well with these chords organize them by their popularity.
 
 IMPORTANT: You must respond with valid JSON only. Do not include any other text, explanations, or markdown formatting.
 
@@ -24,13 +24,15 @@ Return an array of song objects with this exact structure:
     "description": "Brief description of how the chords relate to the song and why it's good for practice",
     "difficulty": "Beginner",
     "key": "C Major",
-    "chordProgression": ["C", "G", "Am", "F"]
+    "chordProgression": ["C", "G", "Am", "F", "Dm", "Em", "Bb", "Gm", "Cm"]
   }
 ]
 
 The difficulty must be exactly one of: "Beginner", "Intermediate", or "Advanced".
 
-Focus on well-known songs that guitarists would recognize first but you can also suggest some lesser known songs also if theres not enough well known songs. Make sure the suggestions are practical and achievable for the given chord complexity.`;
+Focus on well-known songs that guitarists would recognize first but you can also suggest some lesser known songs also if theres not enough well known songs. Make sure the suggestions are practical and achievable for the given chord complexity.
+
+The chord progression should be a list of chords that are played in the songs verse or chorus maxium of 10 chords.`;
 
     const userPrompt = `Selected Chords: ${selectedChords.join(', ')}
 Complementary Chords: ${complementaryChords ? complementaryChords.join(', ') : 'None'}

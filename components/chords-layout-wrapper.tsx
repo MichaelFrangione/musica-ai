@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Footer from '@/components/footer';
 import { usePathname } from 'next/navigation';
+import MiniPlayer from '@/components/mini-player';
 
 interface ChordsLayoutWrapperProps {
     user: UserType | undefined;
@@ -266,6 +267,7 @@ export function ChordsLayoutWrapper({ user: initialUser, children }: ChordsLayou
                 {children}
             </main>
             {!isAuthPage && <Footer />}
+            <MiniPlayer />
         </div>
     );
 }
