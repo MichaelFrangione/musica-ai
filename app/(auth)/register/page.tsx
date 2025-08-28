@@ -47,9 +47,9 @@ export default function Page() {
     }
   }, [state]);
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
     setEmail(formData.get('email') as string);
-    formAction(formData);
+    await formAction(formData);
   };
 
   const handleGuestSuccess = () => {

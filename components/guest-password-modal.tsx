@@ -21,7 +21,7 @@ export function GuestPasswordModal({
     onClose,
     onSuccess,
     title = "Guest Access",
-    description = "Enter the password to access MusicAI features",
+    description = "Enter the guest password to access MusicAI features",
     buttonText = "Access as Guest"
 }: GuestPasswordModalProps) {
     const [password, setPassword] = useState('');
@@ -31,7 +31,7 @@ export function GuestPasswordModal({
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!password.trim()) {
-            setError('Please enter the password to continue');
+            setError('Please enter the guest password');
             return;
         }
 
@@ -80,13 +80,13 @@ export function GuestPasswordModal({
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
-                        <Label htmlFor="guest-password">Password</Label>
+                        <Label htmlFor="guest-password">Guest Password</Label>
                         <Input
                             id="guest-password"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Enter password"
+                            placeholder="Enter guest password"
                             className="mt-1"
                             disabled={isLoading}
                         />
@@ -111,7 +111,7 @@ export function GuestPasswordModal({
                             disabled={isLoading}
                             className="flex-1"
                         >
-                            {isLoading ? 'Verifying...' : buttonText}
+                            {isLoading ? 'Signing in...' : buttonText}
                         </Button>
                     </div>
                 </form>

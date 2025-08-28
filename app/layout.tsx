@@ -9,9 +9,14 @@ import { auth } from './(auth)/auth';
 import { ChordsLayoutWrapper } from '@/components/chords-layout-wrapper';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://chat.vercel.ai'),
-  title: 'Next.js Chatbot Template',
-  description: 'Next.js chatbot template using the AI SDK.',
+  metadataBase: new URL('https://musica-ai.vercel.app'),
+  title: 'Musica AI - AI-Powered Chord Progression & Song Suggestions',
+  description: 'Discover complementary chords, analyze progressions, and get personalized song suggestions powered by AI. Perfect for musicians, songwriters, and music learners.',
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
+  },
 };
 
 export const viewport = {
@@ -83,7 +88,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Toaster position="top-center" />
-          <SessionProvider>
+          <SessionProvider session={session}>
             <ChordsLayoutWrapper user={user}>
               {children}
             </ChordsLayoutWrapper>

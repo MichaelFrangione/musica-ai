@@ -1,60 +1,57 @@
-import Form from 'next/form';
+'use client';
 
-import { Input } from './ui/input';
-import { Label } from './ui/label';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
-export function AuthForm({
-  action,
-  children,
-  defaultEmail = '',
-}: {
-  action: NonNullable<
-    string | ((formData: FormData) => void | Promise<void>) | undefined
-  >;
-  children: React.ReactNode;
-  defaultEmail?: string;
-}) {
-  return (
-    <Form action={action} className="flex flex-col gap-4 px-4 sm:px-16">
-      <div className="flex flex-col gap-2">
-        <Label
-          htmlFor="email"
-          className="text-zinc-600 font-normal dark:text-zinc-400"
-        >
-          Email Address
-        </Label>
+interface AuthFormProps {
+    action: (formData: FormData) => Promise<void>;
+    defaultEmail?: string;
+    children: React.ReactNode;
+}
 
-        <Input
-          id="email"
-          name="email"
-          className="bg-muted text-md md:text-sm"
-          type="email"
-          placeholder="user@acme.com"
-          autoComplete="email"
-          required
-          autoFocus
-          defaultValue={defaultEmail}
-        />
-      </div>
+export function AuthForm({ action, defaultEmail, children }: AuthFormProps) {
+    const [showPassword, setShowPassword] = useState(false);
 
-      <div className="flex flex-col gap-2">
-        <Label
-          htmlFor="password"
-          className="text-zinc-600 font-normal dark:text-zinc-400"
-        >
-          Password
-        </Label>
+    return (
+        <form action={action} className="space-y-4 px-4 sm:px-16">
+            <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    required
+                    defaultValue={defaultEmail}
+                    className="w-full"
+                />
+            </div>
 
-        <Input
-          id="password"
-          name="password"
-          className="bg-muted text-md md:text-sm"
-          type="password"
-          required
-        />
-      </div>
+            <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Enter your password"
+                    required
+                    minLength={6}
+                    className="w-full"
+                />
+                <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="h-auto p-1 text-xs"
+                >
+                    {showPassword ? 'Hide' : 'Show'} password
+                </Button>
+            </div>
 
-      {children}
-    </Form>
-  );
+            {children}
+        </form>
+    );
 }

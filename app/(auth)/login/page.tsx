@@ -4,118 +4,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useActionState, useEffect, useState } from 'react';
 import { toast } from '@/components/toast';
-import { signIn } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Sparkles, ArrowRight, X } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 
 import { AuthForm } from '@/components/auth-form';
 import { SubmitButton } from '@/components/submit-button';
+import { GuestPasswordModal } from '@/components/guest-password-modal';
 
 import { login, type LoginActionState } from '../actions';
 import { useSession } from 'next-auth/react';
-
-function GuestPasswordModal({ isOpen, onClose, onSuccess }: {
-  isOpen: boolean;
-  onClose: () => void;
-  onSuccess: () => void;
-}) {
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!password.trim()) {
-      setError('Please enter the guest password');
-      return;
-    }
-
-    setIsLoading(true);
-    setError('');
-
-    try {
-      const result = await signIn('guest', {
-        password: password,
-        redirect: false,
-      });
-
-      if (result?.error) {
-        setError('Invalid guest password');
-      } else {
-        onSuccess();
-        onClose();
-      }
-    } catch (error) {
-      setError('An error occurred. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  if (!isOpen) return null;
-
-  return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-background rounded-lg p-6 w-full max-w-md mx-4">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Guest Access</h2>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClose}
-            className="h-8 w-8 p-0"
-          >
-            <X className="h-4 w-4" />
-          </Button>
-        </div>
-
-        <p className="text-sm text-gray-600 mb-4">
-          Enter the guest password to access MusicAI features
-        </p>
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <Label htmlFor="guest-password">Guest Password</Label>
-            <Input
-              id="guest-password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter guest password"
-              className="mt-1"
-              disabled={isLoading}
-            />
-          </div>
-
-          {error && (
-            <p className="text-sm text-red-600">{error}</p>
-          )}
-
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              variant="outline"
-              onClick={onClose}
-              disabled={isLoading}
-              className="flex-1"
-            >
-              Cancel
-            </Button>
-            <Button
-              type="submit"
-              disabled={isLoading}
-              className="flex-1"
-            >
-              {isLoading ? 'Signing in...' : 'Access as Guest'}
-            </Button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
 
 export default function Page() {
   const router = useRouter();
@@ -147,13 +44,14 @@ export default function Page() {
     } else if (state.status === 'success') {
       setIsSuccessful(true);
       updateSession();
-      router.refresh();
+      // Redirect to home page instead of refreshing
+      router.push('/');
     }
-  }, [state.status]);
+  }, [state.status, updateSession, router]);
 
-  const handleSubmit = (formData: FormData) => {
+  const handleSubmit = async (formData: FormData) => {
     setEmail(formData.get('email') as string);
-    formAction(formData);
+    await formAction(formData);
   };
 
   const handleGuestSuccess = () => {
