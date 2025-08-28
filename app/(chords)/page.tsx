@@ -126,9 +126,17 @@ export default function Page() {
                     onSubmit={submit}
                 />
 
+                {error && (
+                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                        {error}
+                    </div>
+                )}
+
+                <ComplementaryChordsDisplay complementaryChords={complementaryChords} />
+
                 {/* Only show reset button after we have both chords and songs */}
                 {complementaryChords.length > 0 && songSuggestions && (
-                    <div className="flex justify-center">
+                    <div className="flex justify-center -mt-6">
                         <button
                             type="button"
                             onClick={resetAll}
@@ -139,14 +147,6 @@ export default function Page() {
                         </button>
                     </div>
                 )}
-
-                {error && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                        {error}
-                    </div>
-                )}
-
-                <ComplementaryChordsDisplay complementaryChords={complementaryChords} />
 
                 <SongSuggestions songSuggestions={songSuggestions} />
             </div>

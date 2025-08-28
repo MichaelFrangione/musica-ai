@@ -91,9 +91,9 @@ export default function Page() {
         </div>
 
         <div className="flex items-center px-4 sm:px-16">
-          <div className="flex-1 border-t border-gray-300"></div>
+          <div className="flex-1 border-t border-gray-300" />
           <span className="px-3 text-sm text-gray-500">or create an account</span>
-          <div className="flex-1 border-t border-gray-300"></div>
+          <div className="flex-1 border-t border-gray-300" />
         </div>
 
         <AuthForm action={handleSubmit} defaultEmail={email}>

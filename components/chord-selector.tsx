@@ -106,14 +106,14 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
                         key={selectedRoot}
                         className="mb-4 transition-all duration-500 ease-out opacity-100 translate-y-0"
                     >
-                        <div className="w-full max-w-6xl mx-auto px-2">
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6 justify-items-center">
+                        <div className="w-full max-w-5xl mx-auto px-4">
+                            <div className="flex flex-wrap justify-center gap-2 md:gap-4">
                                 {['Major', 'Minor', '7', 'm7', 'Maj7'].map((type, index) => {
                                     const chord = chordGroups[selectedRoot][type as keyof typeof chordGroups[typeof selectedRoot]];
                                     return (
                                         <div
                                             key={`${selectedRoot}-${type}`}
-                                            className="text-center transition-all duration-500 ease-out opacity-100 translate-y-0 w-full max-w-32"
+                                            className="text-center transition-all duration-500 ease-out opacity-100 translate-y-0 w-32"
                                             style={{
                                                 transitionDelay: `${index * 100}ms`,
                                                 animation: `slideInUp 0.5s ease-out ${index * 100}ms both`
@@ -144,7 +144,7 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
                                                     </div>
                                                 </div>
                                             ) : (
-                                                <div className="w-full max-w-32 h-40 flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-300 rounded-lg transition-all duration-500 ease-out opacity-100"
+                                                <div className="w-full h-40 flex items-center justify-center text-gray-400 text-sm border-2 border-dashed border-gray-300 rounded-lg transition-all duration-500 ease-out opacity-100"
                                                     style={{ transitionDelay: `${index * 200}ms` }}>
                                                     Not Available
                                                 </div>

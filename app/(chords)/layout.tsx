@@ -1,5 +1,5 @@
 import { auth } from '@/app/(auth)/auth';
-import { TestWrapper } from '@/components/test-wrapper';
+import { ChordsLayoutWrapper } from '@/components/chords-layout-wrapper';
 
 export default async function ChordsLayout({
     children,
@@ -9,8 +9,8 @@ export default async function ChordsLayout({
     const session = await auth();
 
     return (
-        <TestWrapper user={session?.user}>
+        <ChordsLayoutWrapper user={session?.user}>
             {children}
-        </TestWrapper>
+        </ChordsLayoutWrapper>
     );
 }

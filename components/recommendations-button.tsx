@@ -16,7 +16,7 @@ export default function RecommendationsButton({
     onSubmit
 }: RecommendationsButtonProps) {
     return (
-        <div className="text-center space-y-4 mb-4">
+        <div className="text-center space-y-4">
             {selectedChords.length === 0 && (
                 <div className="text-gray-600 text-lg">
                     <p>Select some chords above to get started!</p>
@@ -24,14 +24,14 @@ export default function RecommendationsButton({
             )}
 
             {loadingChords && (
-                <div className="flex justify-center items-center gap-3">
+                <div className="flex justify-center items-center gap-3 mt-4">
                     <div className="animate-spin rounded-full size-6 border-b-2 border-blue-600" />
                     <span className="text-lg text-blue-600 font-medium">Getting chord recommendations...</span>
                 </div>
             )}
 
             {loadingSongs && (
-                <div className="flex justify-center items-center gap-3">
+                <div className="flex justify-center items-center gap-3 mt-4">
                     <div className="animate-spin rounded-full size-6 border-b-2 border-green-600" />
                     <span className="text-lg text-green-600 font-medium">Getting song suggestions...</span>
                 </div>

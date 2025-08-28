@@ -243,8 +243,8 @@ export function ChordsLayoutWrapper({ user: initialUser, children }: ChordsLayou
                 <div className="bg-background border-b p-4 flex justify-between items-center">
                     <h1 className="text-2xl font-bold">MusicAI</h1>
                     <div className="flex items-center gap-2">
-                        <div className="h-10 w-20 bg-gray-200 animate-pulse rounded"></div>
-                        <div className="h-10 w-20 bg-gray-200 animate-pulse rounded"></div>
+                        <div className="h-10 w-20 bg-gray-200 animate-pulse rounded" />
+                        <div className="h-10 w-20 bg-gray-200 animate-pulse rounded" />
                     </div>
                 </div>
                 <main className="flex-1">

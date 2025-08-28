@@ -5,7 +5,6 @@ import SelectedChordsDisplay from "@/components/selected-chords-display";
 import RecommendationsButton from "@/components/recommendations-button";
 import ComplementaryChordsDisplay from "@/components/complementary-chords-display";
 import SongSuggestions from "@/components/song-suggestions";
-import { chordData } from "@/app/constants";
 import { useState } from "react";
 
 interface ComplementaryChordsResponse {
