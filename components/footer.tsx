@@ -1,6 +1,6 @@
 export default function Footer() {
     return (
-        <footer className="mt-16 py-8 text-center border-t border-gray-200 bg-gray-50">
+        <footer className="mt-8 py-8 text-center border-t border-gray-200 bg-gray-50">
             <div className="container mx-auto px-4">
                 <div className="flex items-center justify-center gap-2 text-gray-600">
                     <span>Made with</span>

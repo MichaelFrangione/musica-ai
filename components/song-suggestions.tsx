@@ -13,6 +13,8 @@ interface Song {
     chordProgression?: string[];
     youtubeUrl?: string;
     youtubeThumbnail?: string;
+    spotifyUrl?: string;
+    spotifyThumbnail?: string;
 }
 
 interface SongSuggestionsProps {
@@ -57,48 +59,76 @@ function SongSuggestions({ songSuggestions, loadingSongs }: SongSuggestionsProps
 
         setSongs(parsedSongs);
 
-        // Fetch YouTube links for each song
+        // Fetch streaming links for each song
         if (parsedSongs.length > 0) {
-            fetchYouTubeLinks(parsedSongs);
+            fetchStreamingLinks(parsedSongs);
         }
     }, [songSuggestions]);
 
-    const fetchYouTubeLinks = async (songList: Song[]) => {
+    const fetchStreamingLinks = async (songList: Song[]) => {
         setLoading(true);
 
         try {
             const updatedSongs = await Promise.all(
                 songList.map(async (song) => {
-                    if (song.youtubeUrl) return song; // Already has a link
+                    if (song.youtubeUrl && song.spotifyUrl) return song; // Already has both links
 
-                    const searchQuery = `${song.artist} ${song.songName} official audio`;
+                    const searchQuery = `${song.artist} ${song.songName}`;
+                    let updatedSong = { ...song };
 
-                    try {
-                        const response = await fetch('/api/youtube-search', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ query: searchQuery })
-                        });
+                    // Fetch YouTube link if not already present
+                    if (!song.youtubeUrl) {
+                        try {
+                            const youtubeResponse = await fetch('/api/youtube-search', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ query: `${searchQuery} official audio` })
+                            });
 
-                        if (response.ok) {
-                            const data = await response.json();
-                            return {
-                                ...song,
-                                youtubeUrl: data.url,
-                                youtubeThumbnail: data.thumbnail
-                            };
+                            if (youtubeResponse.ok) {
+                                const data = await youtubeResponse.json();
+                                updatedSong = {
+                                    ...updatedSong,
+                                    youtubeUrl: data.url,
+                                    youtubeThumbnail: data.thumbnail
+                                };
+                            }
+                        } catch (error) {
+                            console.error('Failed to fetch YouTube link for:', song.songName, error);
                         }
-                    } catch (error) {
-                        console.error('Failed to fetch YouTube link for:', song.songName, error);
                     }
 
-                    return song;
+                    // Fetch Spotify link if not already present
+                    if (!song.spotifyUrl) {
+                        try {
+                            const spotifyResponse = await fetch('/api/spotify-search', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ query: searchQuery })
+                            });
+
+                            if (spotifyResponse.ok) {
+                                const data = await spotifyResponse.json();
+                                if (data.url) {
+                                    updatedSong = {
+                                        ...updatedSong,
+                                        spotifyUrl: data.url,
+                                        spotifyThumbnail: data.thumbnail
+                                    };
+                                }
+                            }
+                        } catch (error) {
+                            console.error('Failed to fetch Spotify link for:', song.songName, error);
+                        }
+                    }
+
+                    return updatedSong;
                 })
             );
 
             setSongs(updatedSongs);
         } catch (error) {
-            console.error('Error fetching YouTube links:', error);
+            console.error('Error fetching streaming links:', error);
         } finally {
             setLoading(false);
         }
@@ -126,14 +156,18 @@ function SongSuggestions({ songSuggestions, loadingSongs }: SongSuggestionsProps
                 {loading && (
                     <div className="mt-4 flex justify-center items-center gap-2">
                         <div className="animate-spin rounded-full size-5 border-b-2 border-green-600" />
-                        <span className="text-green-600 text-sm">Finding songs on YouTube...</span>
+                        <span className="text-green-600 text-sm">Finding streaming links...</span>
                     </div>
                 )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {songs.map((song) => (
-                    <SongSuggestionItem key={`${song.artist}-${song.songName}`} song={song} />
+                    <SongSuggestionItem
+                        key={`${song.artist}-${song.songName}`}
+                        song={song}
+                        isLoading={loading}
+                    />
                 ))}
             </div>
         </div>

@@ -6,9 +6,16 @@ import { chordData } from '@/app/constants';
 interface ComplementaryChordsDisplayProps {
     complementaryChords: string[];
     selectedChords: string[];
+    analysis?: {
+        progression_type: string;
+        musical_characteristics: string;
+        common_uses: string;
+        suggestions: string;
+    } | null;
+    hasSongSuggestions?: boolean;
 }
 
-export default function ComplementaryChordsDisplay({ complementaryChords, selectedChords }: ComplementaryChordsDisplayProps) {
+export default function ComplementaryChordsDisplay({ complementaryChords, selectedChords, analysis, hasSongSuggestions }: ComplementaryChordsDisplayProps) {
     // Helper function to find chord data by shortName
     const findChordByShortName = (shortName: string) => {
         return chordData.find(chord => chord.shortName === shortName);
@@ -71,6 +78,70 @@ export default function ComplementaryChordsDisplay({ complementaryChords, select
                     );
                 })}
             </div>
+
+            {/* Chord Progression Analysis */}
+            {analysis && (
+                <div className="mt-8 p-6 bg-white rounded-2xl border-2 border-blue-200 shadow-xl">
+                    <h3 className="text-2xl font-bold text-blue-800 mb-4 text-center">Chord Progression Analysis</h3>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                            <div>
+                                <h4 className="text-lg font-semibold text-blue-700 mb-2">Progression Type</h4>
+                                <p className="text-gray-700 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                    {analysis.progression_type}
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="text-lg font-semibold text-blue-700 mb-2">Musical Characteristics</h4>
+                                <p className="text-gray-700 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                    {analysis.musical_characteristics}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div>
+                                <h4 className="text-lg font-semibold text-blue-700 mb-2">Common Uses</h4>
+                                <p className="text-gray-700 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                    {analysis.common_uses}
+                                </p>
+                            </div>
+
+                            <div>
+                                <h4 className="text-lg font-semibold text-blue-700 mb-2">Musical Suggestions</h4>
+                                <p className="text-gray-700 bg-blue-50 p-3 rounded-lg border border-blue-100">
+                                    {analysis.suggestions}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Scroll Down Indicator - only show when we have song suggestions */}
+            {hasSongSuggestions && (
+                <div className="mt-8 text-center">
+                    <div className="inline-flex flex-col items-center gap-2 text-blue-600">
+                        <span className="text-sm font-medium">Scroll down for song suggestions</span>
+                        <button
+                            onClick={() => {
+                                document.getElementById('song-suggestions')?.scrollIntoView({
+                                    behavior: 'smooth',
+                                    block: 'start'
+                                });
+                            }}
+                            className="group hover:scale-110 transition-transform duration-200 cursor-pointer"
+                            aria-label="Scroll to song suggestions"
+                        >
+                            <svg className="w-6 h-6 animate-bounce group-hover:animate-none" style={{ animationDuration: '3s', animationIterationCount: 'infinite' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

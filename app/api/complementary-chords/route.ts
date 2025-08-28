@@ -3,6 +3,7 @@ import { auth } from '@/app/(auth)/auth';
 import { myProvider } from '@/lib/ai/providers';
 import { streamText } from 'ai';
 import { systemPrompt } from '@/lib/ai/prompts';
+
 export async function POST(request: NextRequest) {
   try {
     // Check authentication
@@ -18,8 +19,21 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Please provide an array of selected chords' }, { status: 400 });
     }
 
-    // Create the prompt for complementary chords
-    const prompt = `Given the selected chords: ${selectedChords.join(', ')}, what are the complementary chords that would work well in a progression? Return the answer in this exact JSON format: {"complementary_chords": ["chord1", "chord2", "chord3"]}`;
+    // Create the prompt for complementary chords and analysis
+    const prompt = `Given the selected chords: ${selectedChords.join(', ')}, provide:
+1. Complementary chords that would work well in a progression
+2. A musical analysis of the chord progression
+
+Return the answer in this exact JSON format:
+{
+  "complementary_chords": ["chord1", "chord2", "chord3"],
+  "analysis": {
+    "progression_type": "description of the progression type",
+    "musical_characteristics": "key musical features and mood",
+    "common_uses": "typical genres or contexts where this progression is used",
+    "suggestions": "musical suggestions for using this progression"
+  }
+}`;
 
     // Get the JSON model
     const model = myProvider.languageModel('chat-model-json');
@@ -63,8 +77,14 @@ export async function POST(request: NextRequest) {
 
       return NextResponse.json({
         complementary_chords: jsonResponse.complementary_chords,
+        analysis: jsonResponse.analysis || {
+          progression_type: "Standard progression",
+          musical_characteristics: "Versatile and commonly used",
+          common_uses: "Pop, rock, and folk music",
+          suggestions: "Try playing with different rhythms and strumming patterns"
+        },
         original_chords: selectedChords,
-        message: 'Successfully generated complementary chords'
+        message: 'Successfully generated complementary chords and analysis'
       });
 
     } catch (parseError) {
