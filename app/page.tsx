@@ -139,8 +139,6 @@ export default function HomePage() {
 
                 <SongSuggestions songSuggestions={songSuggestions} />
             </div>
-
-
         </>
     );
 }

@@ -1,5 +1,8 @@
 import { type NextRequest, NextResponse } from 'next/server';
 
+// Force dynamic rendering to prevent prerendering issues
+export const dynamic = 'force-dynamic';
+
 interface YouTubeSearchRequest {
     query: string;
 }
