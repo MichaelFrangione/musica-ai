@@ -1,75 +1,134 @@
-<a href="https://chat.vercel.ai/">
-  <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
-  <h1 align="center">Chat SDK</h1>
-</a>
+# Musica AI - Guitar Chord Progression & Song Suggestion Tool
 
 <p align="center">
-    Chat SDK is a free, open-source template built with Next.js and the AI SDK that helps you quickly build powerful chatbot applications.
+  <strong>An AI-powered guitar learning tool that helps musicians discover complementary chords and find songs to practice with their chosen chord progressions.</strong>
 </p>
 
 <p align="center">
-  <a href="https://chat-sdk.dev"><strong>Read Docs</strong></a> ·
   <a href="#features"><strong>Features</strong></a> ·
-  <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a>
+  <a href="#how-it-works"><strong>How It Works</strong></a> ·
+  <a href="#tech-stack"><strong>Tech Stack</strong></a> ·
+  <a href="#running-locally"><strong>Running Locally</strong></a>
 </p>
 <br/>
 
 ## Features
 
-- [Next.js](https://nextjs.org) App Router
-  - Advanced routing for seamless navigation and performance
-  - React Server Components (RSCs) and Server Actions for server-side rendering and increased performance
-- [AI SDK](https://sdk.vercel.ai/docs)
-  - Unified API for generating text, structured objects, and tool calls with LLMs
-  - Hooks for building dynamic chat and generative user interfaces
-  - Supports xAI (default), OpenAI, Fireworks, and other model providers
-- [shadcn/ui](https://ui.shadcn.com)
-  - Styling with [Tailwind CSS](https://tailwindcss.com)
-  - Component primitives from [Radix UI](https://radix-ui.com) for accessibility and flexibility
-- Data Persistence
-  - [Neon Serverless Postgres](https://vercel.com/marketplace/neon) for saving chat history and user data
-  - [Vercel Blob](https://vercel.com/storage/blob) for efficient file storage
-- [Auth.js](https://authjs.dev)
-  - Simple and secure authentication
+- **🎸 Interactive Chord Selector**
+  - Visual chord diagrams for all major, minor, 7th, and major 7th chords
+  - Organized by root notes (A, A#, B, C, C#, D, D#, E, F, F#, G, G#)
+  - Easy-to-use interface for building chord progressions
 
-## Model Providers
+- **🤖 AI-Powered Chord Analysis**
+  - Get complementary chords that work well with your selected progression
+  - AI analyzes musical theory to suggest harmonically compatible chords
+  - Real-time recommendations using advanced language models
 
-This template ships with [xAI](https://x.ai) `grok-2-1212` as the default chat model. However, with the [AI SDK](https://sdk.vercel.ai/docs), you can switch LLM providers to [OpenAI](https://openai.com), [Anthropic](https://anthropic.com), [Cohere](https://cohere.com/), and [many more](https://sdk.vercel.ai/providers/ai-sdk-providers) with just a few lines of code.
+- **🎵 Song Suggestion Engine**
+  - Discover popular songs that feature similar chord progressions
+  - Get difficulty ratings (Beginner, Intermediate, Advanced)
+  - Learn which songs are perfect for practicing your chosen chords
 
-## Deploy Your Own
+- **🔐 Authentication System**
+  - Secure user accounts with Auth.js
+  - Guest access for trying features without registration
+  - Persistent chord history and preferences
 
-You can deploy your own version of the Next.js AI Chatbot to Vercel with one click:
+## How It Works
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot&env=AUTH_SECRET&envDescription=Learn+more+about+how+to+get+the+API+Keys+for+the+application&envLink=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot%2Fblob%2Fmain%2F.env.example&demo-title=AI+Chatbot&demo-description=An+Open-Source+AI+Chatbot+Template+Built+With+Next.js+and+the+AI+SDK+by+Vercel.&demo-url=https%3A%2F%2Fchat.vercel.ai&products=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22ai%22%2C%22productSlug%22%3A%22grok%22%2C%22integrationSlug%22%3A%22xai%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22productSlug%22%3A%22neon%22%2C%22integrationSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22productSlug%22%3A%22upstash-kv%22%2C%22integrationSlug%22%3A%22upstash%22%7D%2C%7B%22type%22%3A%22blob%22%7D%5D)
+1. **Select Your Chords**: Choose from a comprehensive library of guitar chords organized by root note and chord type
+2. **Get AI Recommendations**: The system analyzes your chord selection and suggests complementary chords that create harmonically pleasing progressions
+3. **Discover Songs**: Automatically receive song suggestions that feature similar chord progressions, perfect for practice
+4. **Practice & Learn**: Use the suggested songs to practice your chord progressions and improve your guitar skills
 
-## Running locally
+## Tech Stack
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js AI Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+- **Frontend**: [Next.js 15](https://nextjs.org) with App Router and React Server Components
+- **AI Integration**: [Vercel AI SDK](https://sdk.vercel.ai/docs) with xAI Grok-2 model
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com) with Tailwind CSS
+- **Database**: [Neon Serverless Postgres](https://vercel.com/marketplace/neon) for user data
+- **Authentication**: [Auth.js](https://authjs.dev) for secure user management
+- **Chord Diagrams**: [SVGuitar](https://github.com/omnibrain/svguitar) - Beautiful SVG-based guitar chord visualization system
 
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various AI and authentication provider accounts.
+## Running Locally
+
+### Prerequisites
+
+- Node.js 18+ and pnpm
+- A database (Neon Postgres recommended)
+- AI model API keys (xAI, OpenAI, or other supported providers)
+
+### Setup
+
+1. **Clone the repository**:
+   ```bash
+   git clone <your-repo-url>
+   cd musica-ai
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   pnpm install
+   ```
+
+3. **Environment Configuration**:
+   Create a `.env.local` file with the following variables:
+   ```bash
+   # Database
+   DATABASE_URL="your-database-connection-string"
+   
+   # AI Provider (choose one)
+   XAI_API_KEY="your-xai-api-key"
+   # or
+   OPENAI_API_KEY="your-openai-api-key"
+   
+   # Authentication
+   AUTH_SECRET="your-auth-secret"
+   AUTH_GITHUB_ID="your-github-oauth-id"
+   AUTH_GITHUB_SECRET="your-github-oauth-secret"
+   
+   # Guest Access (optional)
+   GUEST_PASSWORD="your-guest-password"
+   ```
+
+4. **Database Setup**:
+   ```bash
+   pnpm db:generate
+   pnpm db:migrate
+   ```
+
+5. **Start Development Server**:
+   ```bash
+   pnpm dev
+   ```
+
+   Your app will be running on [localhost:3000](http://localhost:3000)
 
 ### Guest Authentication
 
-The application supports guest access for users who want to try features without creating an account. To configure guest access:
+The application supports guest access for users who want to try features without creating an account:
 
-1. **Set Guest Password**: Add the following to your `.env` file:
+1. **Set Guest Password**: Add to your `.env.local`:
    ```bash
    GUEST_PASSWORD=your-secure-guest-password
    ```
 
-2. **Default Password**: If no environment variable is set, the default guest password is `musicai-guest-2024`
+2. **Default Password**: If no environment variable is set, the default is `musicai-guest-2024`
 
-3. **Security**: Choose a strong password that you can share with intended users. The guest password is separate from your main authentication system.
+## Contributing
 
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
-3. Download your environment variables: `vercel env pull`
+This is an open-source project focused on helping musicians learn and practice guitar. Contributions are welcome! Areas that could use help:
 
-```bash
-pnpm install
-pnpm dev
-```
+- Additional chord types and voicings
+- More sophisticated music theory analysis
+- Enhanced song recommendation algorithms
+- Mobile app development
+- Additional instrument support
 
-Your app template should now be running on [localhost:3000](http://localhost:3000).
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+**Built with ❤️ for the guitar community**

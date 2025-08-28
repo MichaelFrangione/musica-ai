@@ -5,7 +5,10 @@ import SelectedChordsDisplay from "@/components/selected-chords-display";
 import RecommendationsButton from "@/components/recommendations-button";
 import ComplementaryChordsDisplay from "@/components/complementary-chords-display";
 import SongSuggestions from "@/components/song-suggestions";
+import ChordDiagram from "@/components/chordDiagram";
+import { chordData } from "@/app/constants";
 import { useState } from "react";
+import ChordProgressIndicator from "@/components/chord-progress-indicator";
 
 interface ComplementaryChordsResponse {
     complementary_chords: string[];
@@ -20,6 +23,7 @@ export default function HomePage() {
     const [loadingSongs, setLoadingSongs] = useState<boolean>(false);
     const [error, setError] = useState<string>("");
     const [songSuggestions, setSongSuggestions] = useState<string>("");
+    const [showChordSelector, setShowChordSelector] = useState<boolean>(true);
 
     const submit = async () => {
         if (selectedChords.length === 0) {
@@ -27,6 +31,7 @@ export default function HomePage() {
             return;
         }
 
+        setShowChordSelector(false);
         setLoadingChords(true);
         setError("");
 
@@ -88,24 +93,43 @@ export default function HomePage() {
         setComplementaryChords([]);
         setSongSuggestions("");
         setError("");
+        setShowChordSelector(true);
     };
 
     return (
         <>
             <div className="p-6 flex flex-col gap-8">
-                <ChordSelector
-                    selectedChords={selectedChords}
-                    onSelectionChange={setSelectedChords}
-                    onClearComplementary={() => {
-                        setComplementaryChords([]);
-                        setSongSuggestions("");
-                    }}
-                />
+                {showChordSelector && (
+                    <ChordSelector
+                        selectedChords={selectedChords}
+                        onSelectionChange={setSelectedChords}
+                        onClearComplementary={() => {
+                            setComplementaryChords([]);
+                            setSongSuggestions("");
+                        }}
+                    />
+                )}
 
-                <SelectedChordsDisplay
-                    selectedChords={selectedChords}
-                    setSelectedChords={setSelectedChords}
-                />
+                {/* Progress Indicator */}
+                {!showChordSelector && (
+                    <ChordProgressIndicator
+                        loadingChords={loadingChords}
+                        loadingSongs={loadingSongs}
+                        complementaryChords={complementaryChords}
+                        songSuggestions={songSuggestions}
+                    />
+                )}
+
+
+                {/* Full Selected Chords Display (only when selector is visible) */}
+                {showChordSelector && (
+                    <SelectedChordsDisplay
+                        selectedChords={selectedChords}
+                        setSelectedChords={setSelectedChords}
+                        loadingChords={loadingChords}
+                        showRemoveButtons={true}
+                    />
+                )}
 
                 <RecommendationsButton
                     selectedChords={selectedChords}
@@ -114,6 +138,16 @@ export default function HomePage() {
                     complementaryChords={complementaryChords}
                     onSubmit={submit}
                 />
+
+
+
+                {/* Chord Progression (only after clicking button) */}
+                {!showChordSelector && (
+                    <ComplementaryChordsDisplay complementaryChords={complementaryChords} selectedChords={selectedChords} />
+                )}
+
+
+                <SongSuggestions songSuggestions={songSuggestions} loadingSongs={loadingSongs} />
 
                 {/* Only show reset button after we have both chords and songs */}
                 {complementaryChords.length > 0 && songSuggestions && (
@@ -134,10 +168,6 @@ export default function HomePage() {
                         {error}
                     </div>
                 )}
-
-                <ComplementaryChordsDisplay complementaryChords={complementaryChords} />
-
-                <SongSuggestions songSuggestions={songSuggestions} />
             </div>
         </>
     );

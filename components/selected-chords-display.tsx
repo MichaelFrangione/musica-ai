@@ -6,9 +6,11 @@ import { chordData } from '@/app/constants';
 interface SelectedChordsDisplayProps {
     selectedChords: string[];
     setSelectedChords: (chords: string[]) => void;
+    loadingChords?: boolean;
+    showRemoveButtons?: boolean;
 }
 
-export default function SelectedChordsDisplay({ selectedChords, setSelectedChords }: SelectedChordsDisplayProps) {
+export default function SelectedChordsDisplay({ selectedChords, setSelectedChords, loadingChords, showRemoveButtons = true }: SelectedChordsDisplayProps) {
     // Helper function to find chord data by shortName
     const findChordByShortName = (shortName: string) => {
         return chordData.find(chord => chord.shortName === shortName);
@@ -45,28 +47,36 @@ export default function SelectedChordsDisplay({ selectedChords, setSelectedChord
                                     key={chord.shortName}
                                     className="relative bg-white p-4 rounded-2xl border-2 border-purple-200 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
                                 >
-                                    <button
-                                        type="button"
-                                        onClick={() => setSelectedChords(selectedChords.filter(c => c !== chordShortName))}
-                                        className="absolute -top-2 -right-2 size-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 hover:scale-110 shadow-lg z-10"
-                                    >
-                                        ×
-                                    </button>
+                                    {showRemoveButtons && (
+                                        <button
+                                            type="button"
+                                            onClick={() => setSelectedChords(selectedChords.filter(c => c !== chordShortName))}
+                                            disabled={loadingChords}
+                                            className={`absolute -top-2 -right-2 size-6 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-200 shadow-lg z-10 ${loadingChords
+                                                ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                                                : 'bg-red-500 hover:bg-red-600 text-white hover:scale-110'
+                                                }`}
+                                        >
+                                            ×
+                                        </button>
+                                    )}
                                     <ChordDiagram chord={chord} />
                                 </div>
                             );
                         })}
                     </div>
 
-                    <div className="text-center mt-8">
-                        <button
-                            type="button"
-                            onClick={() => setSelectedChords([])}
-                            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg"
-                        >
-                            Clear All
-                        </button>
-                    </div>
+                    {loadingChords && (
+                        <div className="text-center mt-8 pt-6 border-t border-purple-200">
+                            <div className="flex justify-center items-center gap-3 mb-3">
+                                <div className="animate-spin rounded-full size-6 border-b-2 border-purple-600" />
+                                <span className="text-purple-600 text-lg font-medium">Fetching complementary chords for your selection...</span>
+                            </div>
+                            <div className="text-purple-500 text-base">
+                                <p>Analyzing your chord progression with AI</p>
+                            </div>
+                        </div>
+                    )}
                 </>
             )}
         </div>

@@ -13,12 +13,7 @@ interface ChordSelectorProps {
 export default function ChordSelector({ selectedChords, onSelectionChange, onClearComplementary }: ChordSelectorProps) {
     const [selectedRoot, setSelectedRoot] = useState<string | null>(null);
 
-    // Reset selectedRoot when all chords are cleared
-    useEffect(() => {
-        if (selectedChords.length === 0) {
-            setSelectedRoot(null);
-        }
-    }, [selectedChords]);
+
 
     const toggleChordSelection = (shortName: string) => {
         const newSelection = selectedChords.includes(shortName)
@@ -78,7 +73,15 @@ export default function ChordSelector({ selectedChords, onSelectionChange, onCle
             <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-4 sticky top-4 z-10 py-2">
                 {rootNotes.map((root) => {
                     // Check if any chord from this root note group is selected
-                    const hasSelectedChords = selectedChords.some(chord => chord.startsWith(root));
+                    // Use exact root matching to avoid false positives (e.g., A# shouldn't match A)
+                    const hasSelectedChords = selectedChords.some(chord => {
+                        // Extract the root note from the chord name
+                        let chordRoot = chord.charAt(0);
+                        if (chord.charAt(1) === '#') {
+                            chordRoot = chord.substring(0, 2);
+                        }
+                        return chordRoot === root;
+                    });
 
                     return (
                         <button
